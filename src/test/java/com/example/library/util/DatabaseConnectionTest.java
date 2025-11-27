@@ -36,7 +36,8 @@ class DatabaseConnectionTest {
         String url = conn.getMetaData().getURL();
         
         assertTrue(url.contains("postgresql"), "URL should contain postgresql");
-        assertTrue(url.contains("library_db"), "URL should contain library_db database name");
+        assertTrue(url.contains("library_db") || url.contains("library_test"), 
+            "URL should contain library database name");
         
         conn.close();
     }

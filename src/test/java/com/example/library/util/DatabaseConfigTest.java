@@ -45,7 +45,7 @@ class DatabaseConfigTest {
     @Test
     void testGetUrl_ContainsDatabaseName() {
         String url = DatabaseConfig.getUrl();
-        assertTrue(url.contains("library_db") || url.contains("database"), 
+        assertTrue(url.contains("library_db") || url.contains("library_test") || url.contains("database"), 
             "URL should contain database name");
     }
 

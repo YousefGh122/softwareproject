@@ -1,7 +1,7 @@
 # Library Management System
 
-![Java CI](https://github.com/YOUR_USERNAME/YOUR_REPO_NAME/workflows/Java%20CI%20with%20Maven%20and%20Testcontainers/badge.svg)
-[![codecov](https://codecov.io/gh/YOUR_USERNAME/YOUR_REPO_NAME/branch/main/graph/badge.svg)](https://codecov.io/gh/YOUR_USERNAME/YOUR_REPO_NAME)
+![Java CI](https://github.com/Ibraheem-Daas/software-project/workflows/Java%20CI%20with%20Maven%20and%20Testcontainers/badge.svg)
+[![codecov](https://codecov.io/gh/Ibraheem-Daas/software-project/branch/main/graph/badge.svg)](https://codecov.io/gh/Ibraheem-Daas/software-project)
 
 A comprehensive library management system built with Java, PostgreSQL, and Swing GUI.
 
@@ -162,5 +162,5 @@ This project is for educational purposes.
 
 ## Contact
 
-- Project Repository: [YOUR_GITHUB_URL]
-- Issue Tracker: [YOUR_GITHUB_URL/issues]
+- Project Repository: https://github.com/Ibraheem-Daas/software-project
+- Issue Tracker: https://github.com/Ibraheem-Daas/software-project/issues

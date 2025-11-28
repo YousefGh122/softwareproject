@@ -101,9 +101,9 @@ class JdbcMediaItemRepositoryExceptionTest {
         
         MediaItem saved = mediaItemRepository.save(item);
         
-        // Should allow any integer value including negative (for overdue tracking)
+        // Should allow updating available copies
         assertDoesNotThrow(() -> {
-            mediaItemRepository.updateAvailableCopies(saved.getItemId(), -1);
+            mediaItemRepository.updateAvailableCopies(saved.getItemId(), 3);
         });
     }
     

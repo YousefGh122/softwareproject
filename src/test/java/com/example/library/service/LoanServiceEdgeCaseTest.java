@@ -141,7 +141,7 @@ class LibraryServiceImplEdgeCaseTest {
         });
         
         verify(loanRepository).findById(1);
-        verify(loanRepository, never()).updateStatus(anyInt(), anyString(), any(LocalDate.class));
+        verify(loanRepository, never()).updateStatus(anyInt(), anyString(), any());
     }
     
     @Test
@@ -165,7 +165,7 @@ class LibraryServiceImplEdgeCaseTest {
         
         assertDoesNotThrow(() -> libraryService.returnItem(1, LocalDate.now()));
         
-        verify(loanRepository).updateStatus(eq(1), eq("RETURNED"), any(LocalDate.class));
+        verify(loanRepository).updateStatus(eq(1), eq("RETURNED"), any());
         verify(mediaItemRepository).updateAvailableCopies(eq(1), eq(6));
     }
     

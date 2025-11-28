@@ -199,10 +199,10 @@ class JdbcLoanRepositoryExceptionTest {
     }
     
     @Test
-    void testFindOverdueLoans_WithFutureDate_ReturnsEmpty() {
-        // Query for overdue loans as of a date far in the future
-        // Since no loans have due dates that far ahead, result should be empty
-        List<Loan> result = loanRepository.findOverdueLoans(LocalDate.now().plusYears(10));
+    void testFindOverdueLoans_WithPastDate_ReturnsEmpty() {
+        // Query for overdue loans as of a date in the past (e.g., 10 years ago)
+        // No loans should have been overdue that long ago since loans are recent
+        List<Loan> result = loanRepository.findOverdueLoans(LocalDate.now().minusYears(10));
         assertTrue(result.isEmpty());
     }
     

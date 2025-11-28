@@ -190,6 +190,93 @@ class JdbcReservationRepositoryDirectTest {
         System.out.println("✓ Test 6 passed: Find expired reservations");
     }
     
+    @Test
+    @Order(7)
+    @DisplayName("Should find all reservations by item ID")
+    void testFindByItemId() {
+        // Arrange
+        User user1 = createAndSaveUser("user7a", "user7a@example.com");
+        User user2 = createAndSaveUser("user7b", "user7b@example.com");
+        MediaItem item = createAndSaveMediaItem("Book 7", "Author 7", 2, 0);
+        
+        createAndSaveReservation(user1.getUserId(), item.getItemId());
+        createAndSaveReservation(user2.getUserId(), item.getItemId());
+        
+        // Act
+        List<Reservation> reservations = reservationRepository.findByItemId(item.getItemId());
+        
+        // Assert
+        assertEquals(2, reservations.size());
+        System.out.println("✓ Test 7 passed: Find all reservations by item ID");
+    }
+    
+    @Test
+    @Order(8)
+    @DisplayName("Should find active reservations by user ID")
+    void testFindActiveByUserId() {
+        // Arrange
+        User user = createAndSaveUser("user8", "user8@example.com");
+        MediaItem item1 = createAndSaveMediaItem("Book 8a", "Author 8a", 2, 0);
+        MediaItem item2 = createAndSaveMediaItem("Book 8b", "Author 8b", 2, 0);
+        MediaItem item3 = createAndSaveMediaItem("Book 8c", "Author 8c", 2, 0);
+        
+        // Create active and cancelled reservations
+        createAndSaveReservation(user.getUserId(), item1.getItemId());
+        createAndSaveReservation(user.getUserId(), item2.getItemId());
+        
+        Reservation cancelled = createAndSaveReservation(user.getUserId(), item3.getItemId());
+        cancelled.setStatus("CANCELLED");
+        reservationRepository.update(cancelled);
+        
+        // Act
+        List<Reservation> activeReservations = reservationRepository.findActiveByUserId(user.getUserId());
+        
+        // Assert
+        assertEquals(2, activeReservations.size());
+        assertTrue(activeReservations.stream().allMatch(r -> "ACTIVE".equals(r.getStatus())));
+        System.out.println("✓ Test 8 passed: Find active reservations by user ID");
+    }
+    
+    @Test
+    @Order(9)
+    @DisplayName("Should find all reservations")
+    void testFindAll() {
+        // Arrange
+        User user1 = createAndSaveUser("user9a", "user9a@example.com");
+        User user2 = createAndSaveUser("user9b", "user9b@example.com");
+        MediaItem item1 = createAndSaveMediaItem("Book 9a", "Author 9a", 2, 0);
+        MediaItem item2 = createAndSaveMediaItem("Book 9b", "Author 9b", 2, 0);
+        
+        createAndSaveReservation(user1.getUserId(), item1.getItemId());
+        createAndSaveReservation(user2.getUserId(), item2.getItemId());
+        
+        // Act
+        List<Reservation> allReservations = reservationRepository.findAll();
+        
+        // Assert
+        assertTrue(allReservations.size() >= 2);
+        System.out.println("✓ Test 9 passed: Find all reservations");
+    }
+    
+    @Test
+    @Order(10)
+    @DisplayName("Should delete reservation by ID")
+    void testDeleteById() {
+        // Arrange
+        User user = createAndSaveUser("user10", "user10@example.com");
+        MediaItem item = createAndSaveMediaItem("Book 10", "Author 10", 2, 0);
+        Reservation reservation = createAndSaveReservation(user.getUserId(), item.getItemId());
+        Integer reservationId = reservation.getReservationId();
+        
+        // Act
+        reservationRepository.deleteById(reservationId);
+        Optional<Reservation> deleted = reservationRepository.findById(reservationId);
+        
+        // Assert
+        assertFalse(deleted.isPresent());
+        System.out.println("✓ Test 10 passed: Delete reservation by ID");
+    }
+    
     // Helper methods
     
     private User createAndSaveUser(String username, String email) {

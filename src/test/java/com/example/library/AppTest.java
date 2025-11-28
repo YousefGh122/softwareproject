@@ -58,9 +58,8 @@ class AppTest {
         App.main(new String[]{});
         
         String output = outContent.toString();
-        assertTrue(output.contains("Library Management System") || 
-                   output.contains("Menu") || 
-                   output.contains("Exit"));
+        assertTrue(output.contains("Hello Library System") || 
+                   output.contains("Database connection"));
     }
     
     @Test

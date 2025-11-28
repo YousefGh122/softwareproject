@@ -91,7 +91,7 @@ class JdbcMediaItemRepositoryExceptionTest {
         item.setTitle("Update Copies Test");
         item.setAuthor("Test Author");
         item.setType("BOOK");
-        item.setIsbn("EXCEPTION-TEST-UPDATE-COPIES-" + System.currentTimeMillis());
+        item.setIsbn("UPDATE-" + UUID.randomUUID().toString().substring(0, 13));
         item.setPublicationDate(LocalDate.now());
         item.setPublisher("Test Publisher");
         item.setTotalCopies(5);
@@ -112,7 +112,7 @@ class JdbcMediaItemRepositoryExceptionTest {
         item.setTitle("Delete Test");
         item.setAuthor("Test Author");
         item.setType("BOOK");
-        item.setIsbn("EXCEPTION-TEST-DELETE-" + System.currentTimeMillis());
+        item.setIsbn("DELETE-" + UUID.randomUUID().toString().substring(0, 13));
         item.setPublicationDate(LocalDate.now());
         item.setPublisher("Test Publisher");
         item.setTotalCopies(5);

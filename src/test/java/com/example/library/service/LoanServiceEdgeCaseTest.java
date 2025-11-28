@@ -103,7 +103,7 @@ class LibraryServiceImplEdgeCaseTest {
         when(userRepository.findById(1)).thenReturn(Optional.of(user));
         when(mediaItemRepository.findById(1)).thenReturn(Optional.of(item));
         when(loanRepository.findOverdueLoans(any(LocalDate.class))).thenReturn(java.util.Collections.emptyList());
-        when(fineRepository.findByUserId(1)).thenReturn(java.util.Collections.emptyList());
+        when(fineRepository.calculateTotalUnpaidByUserId(1)).thenReturn(BigDecimal.ZERO);
         when(loanRepository.save(any(Loan.class))).thenReturn(savedLoan);
         doNothing().when(mediaItemRepository).updateAvailableCopies(anyInt(), anyInt());
         
@@ -161,8 +161,6 @@ class LibraryServiceImplEdgeCaseTest {
         
         when(loanRepository.findById(1)).thenReturn(Optional.of(loan));
         when(mediaItemRepository.findById(1)).thenReturn(Optional.of(item));
-        doNothing().when(loanRepository).updateStatus(anyInt(), anyString(), any(LocalDate.class));
-        doNothing().when(mediaItemRepository).updateAvailableCopies(anyInt(), anyInt());
         when(fineCalculator.calculateFine(any(), any())).thenReturn(BigDecimal.ZERO);
         
         assertDoesNotThrow(() -> libraryService.returnItem(1, LocalDate.now()));

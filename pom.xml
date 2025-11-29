@@ -110,6 +110,13 @@
                         <goals>
                             <goal>prepare-agent</goal>
                         </goals>
+                        <configuration>
+                            <excludes>
+                                <exclude>com/example/library/App.class</exclude>
+                                <exclude>com/example/library/ui/**/*.class</exclude>
+                                <exclude>com/example/library/ReservationFeatureTest.class</exclude>
+                            </excludes>
+                        </configuration>
                     </execution>
                     <execution>
                         <id>report</id>
@@ -134,20 +141,16 @@
                                             <minimum>0.90</minimum>
                                         </limit>
                                     </limits>
-                                    <excludes>
-                                        <exclude>com.example.library.ui.*</exclude>
-                                        <exclude>com.example.library.App</exclude>
-                                    </excludes>
                                 </rule>
                             </rules>
                         </configuration>
                     </execution>
                 </executions>
                 <configuration>
-                    <!-- Exclude GUI classes from all coverage analysis -->
                     <excludes>
-                        <exclude>com/example/library/ui/**/*</exclude>
                         <exclude>com/example/library/App.class</exclude>
+                        <exclude>com/example/library/ui/**/*.class</exclude>
+                        <exclude>com/example/library/ReservationFeatureTest.class</exclude>
                     </excludes>
                 </configuration>
             </plugin>

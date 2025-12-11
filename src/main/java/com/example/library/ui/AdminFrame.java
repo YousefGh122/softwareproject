@@ -28,9 +28,15 @@ public class AdminFrame extends JFrame {
     private static final String FONT_ARIAL = "Arial";
     private static final String LOGOUT_TEXT = "Logout";
     private static final String DATE_FORMAT = "yyyy-MM-dd";
-    private static final String USER_ID_TEXT = USER_ID_TEXT;
-    private static final String LOAN_ID_TEXT = LOAN_ID_TEXT;
-    private static final String STATUS_TEXT = STATUS_TEXT;
+    private static final String USER_ID_TEXT = "User ID";
+    private static final String LOAN_ID_TEXT = "Loan ID";
+    private static final String STATUS_TEXT = "Status";
+    private static final String ISBN_TEXT = ISBN_TEXT;
+    private static final String PUBLISHER_TEXT = PUBLISHER_TEXT;
+    private static final String SUCCESS_TEXT = "Success";
+    private static final String SEARCH_TEXT = "Search";
+    private static final String SHOW_ALL_TEXT = "Show All";
+    private static final String PLEASE_SELECT_ITEM = PLEASE_SELECT_ITEM;
     
     private final transient User currentUser;
     private final transient LibraryService libraryService;
@@ -229,7 +235,7 @@ public class AdminFrame extends JFrame {
             
             JOptionPane.showMessageDialog(this,
                     "Media item added successfully!\nItem ID: " + saved.getItemId(),
-                    "Success", JOptionPane.INFORMATION_MESSAGE);
+                    SUCCESS_TEXT, JOptionPane.INFORMATION_MESSAGE);
             
             // Clear form
             titleField.setText("");
@@ -259,15 +265,15 @@ public class AdminFrame extends JFrame {
         searchPanel.add(new JLabel("Search:"));
         JTextField searchField = new JTextField(30);
         searchPanel.add(searchField);
-        JButton searchButton = new JButton("Search");
+        JButton searchButton = new JButton(SEARCH_TEXT);
         searchPanel.add(searchButton);
-        JButton showAllButton = new JButton("Show All");
+        JButton showAllButton = new JButton(SHOW_ALL_TEXT);
         searchPanel.add(showAllButton);
         
         panel.add(searchPanel, BorderLayout.NORTH);
         
         // Table
-        String[] columns = {"ID", "Title", "Author", "Type", "ISBN", "Publisher", "Available/Total"};
+        String[] columns = {"ID", "Title", "Author", "Type", ISBN_TEXT, PUBLISHER_TEXT, "Available/Total"};
         DefaultTableModel tableModel = new DefaultTableModel(columns, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -363,7 +369,7 @@ public class AdminFrame extends JFrame {
     private void viewItemDetails(JTable table) {
         int selectedRow = table.getSelectedRow();
         if (selectedRow == -1) {
-            JOptionPane.showMessageDialog(this, "Please select an item first",
+            JOptionPane.showMessageDialog(this, PLEASE_SELECT_ITEM,
                     "No Selection", JOptionPane.WARNING_MESSAGE);
             return;
         }
@@ -431,7 +437,7 @@ public class AdminFrame extends JFrame {
     private void editItem(JTable table, DefaultTableModel tableModel) {
         int selectedRow = table.getSelectedRow();
         if (selectedRow == -1) {
-            JOptionPane.showMessageDialog(this, "Please select an item first",
+            JOptionPane.showMessageDialog(this, PLEASE_SELECT_ITEM,
                     "No Selection", JOptionPane.WARNING_MESSAGE);
             return;
         }
@@ -521,7 +527,7 @@ public class AdminFrame extends JFrame {
                     mediaItemRepository.update(item);
                     
                     JOptionPane.showMessageDialog(dialog, "Item updated successfully!",
-                            "Success", JOptionPane.INFORMATION_MESSAGE);
+                            SUCCESS_TEXT, JOptionPane.INFORMATION_MESSAGE);
                     
                     // Refresh table
                     searchItems(tableModel, "");
@@ -553,7 +559,7 @@ public class AdminFrame extends JFrame {
     private void deleteItem(JTable table, DefaultTableModel tableModel) {
         int selectedRow = table.getSelectedRow();
         if (selectedRow == -1) {
-            JOptionPane.showMessageDialog(this, "Please select an item first",
+            JOptionPane.showMessageDialog(this, PLEASE_SELECT_ITEM,
                     "No Selection", JOptionPane.WARNING_MESSAGE);
             return;
         }
@@ -570,7 +576,7 @@ public class AdminFrame extends JFrame {
                 mediaItemRepository.deleteById(itemId);
                 
                 JOptionPane.showMessageDialog(this, "Item deleted successfully!",
-                        "Success", JOptionPane.INFORMATION_MESSAGE);
+                        SUCCESS_TEXT, JOptionPane.INFORMATION_MESSAGE);
                 
                 // Refresh table
                 searchItems(tableModel, "");
@@ -653,9 +659,9 @@ public class AdminFrame extends JFrame {
         inputPanel.add(new JLabel("Filter by User ID:"));
         JTextField userIdField = new JTextField(10);
         inputPanel.add(userIdField);
-        JButton searchButton = new JButton("Search");
+        JButton searchButton = new JButton(SEARCH_TEXT);
         inputPanel.add(searchButton);
-        JButton showAllButton = new JButton("Show All");
+        JButton showAllButton = new JButton(SHOW_ALL_TEXT);
         inputPanel.add(showAllButton);
         
         panel.add(inputPanel, BorderLayout.NORTH);
@@ -782,9 +788,9 @@ public class AdminFrame extends JFrame {
         inputPanel.add(new JLabel("Filter by User ID:"));
         JTextField userIdField = new JTextField(10);
         inputPanel.add(userIdField);
-        JButton searchButton = new JButton("Search");
+        JButton searchButton = new JButton(SEARCH_TEXT);
         inputPanel.add(searchButton);
-        JButton showAllButton = new JButton("Show All");
+        JButton showAllButton = new JButton(SHOW_ALL_TEXT);
         inputPanel.add(showAllButton);
         
         panel.add(inputPanel, BorderLayout.NORTH);
@@ -1193,7 +1199,7 @@ public class AdminFrame extends JFrame {
                 
                 JOptionPane.showMessageDialog(dialog,
                         "User created successfully!\nUser ID: " + savedUser.getUserId(),
-                        "Success", JOptionPane.INFORMATION_MESSAGE);
+                        SUCCESS_TEXT, JOptionPane.INFORMATION_MESSAGE);
                 
                 // Refresh user table
                 refreshUserTable();

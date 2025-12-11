@@ -26,8 +26,12 @@ public class UserFrame extends JFrame {
     private static final String FONT_ARIAL = "Arial";
     private static final String LOGOUT_TEXT = "Logout";
     private static final String DATE_FORMAT = "yyyy-MM-dd";
-    private static final String LOAN_ID_TEXT = LOAN_ID_TEXT;
-    private static final String STATUS_TEXT = STATUS_TEXT;
+    private static final String LOAN_ID_TEXT = "Loan ID";
+    private static final String STATUS_TEXT = "Status";
+    private static final String ISBN_TEXT = ISBN_TEXT;
+    private static final String PUBLISHER_TEXT = PUBLISHER_TEXT;
+    private static final String SUCCESS_TEXT = "Success";
+    private static final String SEARCH_TEXT = "Search";
     
     private final transient User currentUser;
     private final transient LibraryService libraryService;
@@ -90,13 +94,13 @@ public class UserFrame extends JFrame {
         searchPanel.add(new JLabel("Search:"));
         JTextField searchField = new JTextField(30);
         searchPanel.add(searchField);
-        JButton searchButton = new JButton("Search");
+        JButton searchButton = new JButton(SEARCH_TEXT);
         searchPanel.add(searchButton);
         
         panel.add(searchPanel, BorderLayout.NORTH);
         
         // Table
-        String[] columns = {"Item ID", "Title", "Author", "Type", "ISBN", "Publisher", "Available/Total"};
+        String[] columns = {"Item ID", "Title", "Author", "Type", ISBN_TEXT, PUBLISHER_TEXT, "Available/Total"};
         DefaultTableModel tableModel = new DefaultTableModel(columns, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -211,7 +215,7 @@ public class UserFrame extends JFrame {
             infoArea.setText(message);
             
             JOptionPane.showMessageDialog(this, "Item borrowed successfully!\nDue date: " + loan.getDueDate(),
-                    "Success", JOptionPane.INFORMATION_MESSAGE);
+                    SUCCESS_TEXT, JOptionPane.INFORMATION_MESSAGE);
             
         } catch (BusinessException ex) {
             JOptionPane.showMessageDialog(this, "Cannot borrow item: " + ex.getMessage(),
@@ -350,7 +354,7 @@ public class UserFrame extends JFrame {
         try {
             libraryService.returnItem(loanId, LocalDate.now());
             JOptionPane.showMessageDialog(this, "Item returned successfully!",
-                    "Success", JOptionPane.INFORMATION_MESSAGE);
+                    SUCCESS_TEXT, JOptionPane.INFORMATION_MESSAGE);
             loadActiveLoans(tableModel); // Refresh
         } catch (BusinessException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(),
@@ -452,7 +456,7 @@ public class UserFrame extends JFrame {
             libraryService.returnItem(loanId, today);
             
             JOptionPane.showMessageDialog(this, "Item returned successfully!",
-                    "Success", JOptionPane.INFORMATION_MESSAGE);
+                    SUCCESS_TEXT, JOptionPane.INFORMATION_MESSAGE);
             
             // Check if fine was created
             List<Fine> fines = paymentService.getUnpaidFines(currentUser.getUserId());
@@ -590,7 +594,7 @@ public class UserFrame extends JFrame {
             if (choice == JOptionPane.YES_OPTION) {
                 paymentService.payAllFinesForUser(currentUser.getUserId());
                 JOptionPane.showMessageDialog(this, "All fines paid successfully!",
-                        "Success", JOptionPane.INFORMATION_MESSAGE);
+                        SUCCESS_TEXT, JOptionPane.INFORMATION_MESSAGE);
                 loadFines(tableModel, totalLabel);
             }
             
@@ -604,7 +608,7 @@ public class UserFrame extends JFrame {
         try {
             paymentService.payFine(fineId);
             JOptionPane.showMessageDialog(this, "Fine paid successfully!",
-                    "Success", JOptionPane.INFORMATION_MESSAGE);
+                    SUCCESS_TEXT, JOptionPane.INFORMATION_MESSAGE);
             loadFines(tableModel, totalLabel);
             
         } catch (Exception ex) {

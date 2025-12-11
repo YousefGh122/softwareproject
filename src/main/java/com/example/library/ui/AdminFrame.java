@@ -31,12 +31,15 @@ public class AdminFrame extends JFrame {
     private static final String USER_ID_TEXT = "User ID";
     private static final String LOAN_ID_TEXT = "Loan ID";
     private static final String STATUS_TEXT = "Status";
-    private static final String ISBN_TEXT = ISBN_TEXT;
-    private static final String PUBLISHER_TEXT = PUBLISHER_TEXT;
+    private static final String ISBN_TEXT = "ISBN";
+    private static final String PUBLISHER_TEXT = "Publisher";
     private static final String SUCCESS_TEXT = "Success";
     private static final String SEARCH_TEXT = "Search";
     private static final String SHOW_ALL_TEXT = "Show All";
-    private static final String PLEASE_SELECT_ITEM = PLEASE_SELECT_ITEM;
+    private static final String PLEASE_SELECT_ITEM = "Please select an item first";
+    private static final String ISBN_LABEL = ISBN_LABEL;
+    private static final String PUBLISHER_LABEL = PUBLISHER_LABEL;
+    private static final String NO_SELECTION_TEXT = NO_SELECTION_TEXT;
     
     private final transient User currentUser;
     private final transient LibraryService libraryService;
@@ -123,8 +126,8 @@ public class AdminFrame extends JFrame {
         addFormField(formPanel, gbc, row++, "Title*:", titleField);
         addFormField(formPanel, gbc, row++, "Author*:", authorField);
         addFormField(formPanel, gbc, row++, "Type*:", typeCombo);
-        addFormField(formPanel, gbc, row++, "ISBN:", isbnField);
-        addFormField(formPanel, gbc, row++, "Publisher:", publisherField);
+        addFormField(formPanel, gbc, row++, ISBN_LABEL, isbnField);
+        addFormField(formPanel, gbc, row++, PUBLISHER_LABEL, publisherField);
         addFormField(formPanel, gbc, row++, "Publication Date (YYYY-MM-DD):", publicationDateField);
         addFormField(formPanel, gbc, row++, "Total Copies*:", totalCopiesField);
         addFormField(formPanel, gbc, row++, "Late Fee Per Day*:", lateFeesField);
@@ -370,7 +373,7 @@ public class AdminFrame extends JFrame {
         int selectedRow = table.getSelectedRow();
         if (selectedRow == -1) {
             JOptionPane.showMessageDialog(this, PLEASE_SELECT_ITEM,
-                    "No Selection", JOptionPane.WARNING_MESSAGE);
+                    NO_SELECTION_TEXT, JOptionPane.WARNING_MESSAGE);
             return;
         }
         
@@ -401,8 +404,8 @@ public class AdminFrame extends JFrame {
             addDetailField(detailsPanel, gbc, row++, "Title:", item.getTitle());
             addDetailField(detailsPanel, gbc, row++, "Author:", item.getAuthor());
             addDetailField(detailsPanel, gbc, row++, "Type:", item.getType());
-            addDetailField(detailsPanel, gbc, row++, "ISBN:", item.getIsbn() != null ? item.getIsbn() : "N/A");
-            addDetailField(detailsPanel, gbc, row++, "Publisher:", item.getPublisher() != null ? item.getPublisher() : "N/A");
+            addDetailField(detailsPanel, gbc, row++, ISBN_LABEL, item.getIsbn() != null ? item.getIsbn() : "N/A");
+            addDetailField(detailsPanel, gbc, row++, PUBLISHER_LABEL, item.getPublisher() != null ? item.getPublisher() : "N/A");
             addDetailField(detailsPanel, gbc, row++, "Publication Date:", 
                     item.getPublicationDate() != null ? item.getPublicationDate().toString() : "N/A");
             addDetailField(detailsPanel, gbc, row++, "Total Copies:", String.valueOf(item.getTotalCopies()));
@@ -438,7 +441,7 @@ public class AdminFrame extends JFrame {
         int selectedRow = table.getSelectedRow();
         if (selectedRow == -1) {
             JOptionPane.showMessageDialog(this, PLEASE_SELECT_ITEM,
-                    "No Selection", JOptionPane.WARNING_MESSAGE);
+                    NO_SELECTION_TEXT, JOptionPane.WARNING_MESSAGE);
             return;
         }
         
@@ -478,8 +481,8 @@ public class AdminFrame extends JFrame {
             addFormField(formPanel, gbc, row++, "Title*:", titleField);
             addFormField(formPanel, gbc, row++, "Author*:", authorField);
             addFormField(formPanel, gbc, row++, "Type*:", typeCombo);
-            addFormField(formPanel, gbc, row++, "ISBN:", isbnField);
-            addFormField(formPanel, gbc, row++, "Publisher:", publisherField);
+            addFormField(formPanel, gbc, row++, ISBN_LABEL, isbnField);
+            addFormField(formPanel, gbc, row++, PUBLISHER_LABEL, publisherField);
             addFormField(formPanel, gbc, row++, "Publication Date (YYYY-MM-DD):", pubDateField);
             addFormField(formPanel, gbc, row++, "Total Copies*:", totalCopiesField);
             addFormField(formPanel, gbc, row++, "Available Copies*:", availableCopiesField);
@@ -560,7 +563,7 @@ public class AdminFrame extends JFrame {
         int selectedRow = table.getSelectedRow();
         if (selectedRow == -1) {
             JOptionPane.showMessageDialog(this, PLEASE_SELECT_ITEM,
-                    "No Selection", JOptionPane.WARNING_MESSAGE);
+                    NO_SELECTION_TEXT, JOptionPane.WARNING_MESSAGE);
             return;
         }
         

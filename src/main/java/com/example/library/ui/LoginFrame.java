@@ -49,7 +49,7 @@ public class LoginFrame extends JFrame {
     
     private void initializeUI() {
         setTitle("Library Management System - Login");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setSize(400, 250);
         setLocationRelativeTo(null); // Center on screen
         setResizable(false);

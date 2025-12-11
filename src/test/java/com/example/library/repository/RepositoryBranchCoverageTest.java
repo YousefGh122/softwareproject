@@ -91,7 +91,7 @@ class RepositoryBranchCoverageTest {
         
         JdbcUserRepository repository = new JdbcUserRepository();
         
-        assertThrows(RuntimeException.class, () -> repository.findById(1L));
+        assertThrows(RuntimeException.class, () -> repository.findById(1));
     }
 
     @Test
@@ -144,7 +144,7 @@ class RepositoryBranchCoverageTest {
         
         JdbcFineRepository repository = new JdbcFineRepository();
         
-        assertThrows(RuntimeException.class, () -> repository.existsByLoanId(1L));
+        assertThrows(RuntimeException.class, () -> repository.existsByLoanId(1));
     }
 
     @Test
@@ -155,7 +155,7 @@ class RepositoryBranchCoverageTest {
         
         JdbcFineRepository repository = new JdbcFineRepository();
         
-        boolean exists = repository.existsByLoanId(999L);
+        boolean exists = repository.existsByLoanId(999);
         assertFalse(exists);
     }
 
@@ -165,7 +165,7 @@ class RepositoryBranchCoverageTest {
         
         JdbcFineRepository repository = new JdbcFineRepository();
         
-        assertThrows(RuntimeException.class, () -> repository.calculateTotalUnpaidByUserId(1L));
+        assertThrows(RuntimeException.class, () -> repository.calculateTotalUnpaidByUserId(1));
     }
 
     @Test
@@ -176,7 +176,7 @@ class RepositoryBranchCoverageTest {
         
         JdbcFineRepository repository = new JdbcFineRepository();
         
-        BigDecimal total = repository.calculateTotalUnpaidByUserId(999L);
+        BigDecimal total = repository.calculateTotalUnpaidByUserId(999);
         assertEquals(BigDecimal.ZERO, total);
     }
 
@@ -186,7 +186,7 @@ class RepositoryBranchCoverageTest {
         when(mockStatement.executeUpdate()).thenReturn(0);
         
         JdbcFineRepository repository = new JdbcFineRepository();
-        Fine fine = new Fine(null, 1L, BigDecimal.TEN, LocalDate.now(), FineStatus.UNPAID);
+        Fine fine = new Fine(null, 1, BigDecimal.TEN, LocalDate.now(), FineStatus.UNPAID, null);
         
         assertThrows(RuntimeException.class, () -> repository.save(fine));
     }
@@ -199,7 +199,7 @@ class RepositoryBranchCoverageTest {
         when(mockResultSet.next()).thenReturn(false);
         
         JdbcFineRepository repository = new JdbcFineRepository();
-        Fine fine = new Fine(null, 1L, BigDecimal.TEN, LocalDate.now(), FineStatus.UNPAID);
+        Fine fine = new Fine(null, 1, BigDecimal.TEN, LocalDate.now(), FineStatus.UNPAID, null);
         
         assertThrows(RuntimeException.class, () -> repository.save(fine));
     }
@@ -210,7 +210,7 @@ class RepositoryBranchCoverageTest {
         
         JdbcFineRepository repository = new JdbcFineRepository();
         
-        assertThrows(RuntimeException.class, () -> repository.findById(1L));
+        assertThrows(RuntimeException.class, () -> repository.findById(1));
     }
 
     @Test
@@ -219,7 +219,7 @@ class RepositoryBranchCoverageTest {
         
         JdbcFineRepository repository = new JdbcFineRepository();
         
-        assertThrows(RuntimeException.class, () -> repository.findByLoanId(1L));
+        assertThrows(RuntimeException.class, () -> repository.findByLoanId(1));
     }
 
     // ==================== JdbcMediaItemRepository Tests ====================
@@ -251,7 +251,7 @@ class RepositoryBranchCoverageTest {
         
         JdbcMediaItemRepository repository = new JdbcMediaItemRepository();
         
-        assertThrows(RuntimeException.class, () -> repository.findById(1L));
+        assertThrows(RuntimeException.class, () -> repository.findById(1));
     }
 
     @Test
@@ -269,8 +269,8 @@ class RepositoryBranchCoverageTest {
         when(mockStatement.executeUpdate()).thenReturn(0);
         
         JdbcMediaItemRepository repository = new JdbcMediaItemRepository();
-        MediaItem item = new MediaItem(null, "Test Book", "Author", "123456", MediaType.BOOK, 
-                                       LocalDate.now(), 5, 5, BigDecimal.ONE);
+        MediaItem item = new MediaItem(null, "Test Book", "Author", "Book", "123456", 
+                                       LocalDate.now(), "Publisher", 5, 5, BigDecimal.ONE);
         
         assertThrows(RuntimeException.class, () -> repository.save(item));
     }
@@ -283,8 +283,8 @@ class RepositoryBranchCoverageTest {
         when(mockResultSet.next()).thenReturn(false);
         
         JdbcMediaItemRepository repository = new JdbcMediaItemRepository();
-        MediaItem item = new MediaItem(null, "Test Book", "Author", "123456", MediaType.BOOK, 
-                                       LocalDate.now(), 5, 5, BigDecimal.ONE);
+        MediaItem item = new MediaItem(null, "Test Book", "Author", "Book", "123456", 
+                                       LocalDate.now(), "Publisher", 5, 5, BigDecimal.ONE);
         
         assertThrows(RuntimeException.class, () -> repository.save(item));
     }
@@ -297,7 +297,7 @@ class RepositoryBranchCoverageTest {
         
         JdbcLoanRepository repository = new JdbcLoanRepository();
         
-        assertThrows(RuntimeException.class, () -> repository.countActiveByUserId(1L));
+        assertThrows(RuntimeException.class, () -> repository.countActiveByUserId(1));
     }
 
     @Test
@@ -308,7 +308,7 @@ class RepositoryBranchCoverageTest {
         
         JdbcLoanRepository repository = new JdbcLoanRepository();
         
-        int count = repository.countActiveByUserId(999L);
+        int count = repository.countActiveByUserId(999);
         assertEquals(0, count);
     }
 
@@ -318,7 +318,7 @@ class RepositoryBranchCoverageTest {
         
         JdbcLoanRepository repository = new JdbcLoanRepository();
         
-        assertThrows(RuntimeException.class, () -> repository.findById(1L));
+        assertThrows(RuntimeException.class, () -> repository.findById(1));
     }
 
     @Test
@@ -327,7 +327,7 @@ class RepositoryBranchCoverageTest {
         when(mockStatement.executeUpdate()).thenReturn(0);
         
         JdbcLoanRepository repository = new JdbcLoanRepository();
-        Loan loan = new Loan(null, 1L, 1L, LocalDate.now(), LocalDate.now().plusDays(14), null, LoanStatus.ACTIVE);
+        Loan loan = new Loan(null, 1, 1, LocalDate.now(), LocalDate.now().plusDays(14), null, LoanStatus.ACTIVE);
         
         assertThrows(RuntimeException.class, () -> repository.save(loan));
     }
@@ -340,7 +340,7 @@ class RepositoryBranchCoverageTest {
         when(mockResultSet.next()).thenReturn(false);
         
         JdbcLoanRepository repository = new JdbcLoanRepository();
-        Loan loan = new Loan(null, 1L, 1L, LocalDate.now(), LocalDate.now().plusDays(14), null, LoanStatus.ACTIVE);
+        Loan loan = new Loan(null, 1, 1, LocalDate.now(), LocalDate.now().plusDays(14), null, LoanStatus.ACTIVE);
         
         assertThrows(RuntimeException.class, () -> repository.save(loan));
     }
@@ -353,7 +353,7 @@ class RepositoryBranchCoverageTest {
         
         JdbcReservationRepository repository = new JdbcReservationRepository();
         
-        assertThrows(RuntimeException.class, () -> repository.countActiveByItemId(1L));
+        assertThrows(RuntimeException.class, () -> repository.countActiveByItemId(1));
     }
 
     @Test
@@ -364,7 +364,7 @@ class RepositoryBranchCoverageTest {
         
         JdbcReservationRepository repository = new JdbcReservationRepository();
         
-        int count = repository.countActiveByItemId(999L);
+        int count = repository.countActiveByItemId(999);
         assertEquals(0, count);
     }
 
@@ -374,7 +374,7 @@ class RepositoryBranchCoverageTest {
         
         JdbcReservationRepository repository = new JdbcReservationRepository();
         
-        assertThrows(RuntimeException.class, () -> repository.findById(1L));
+        assertThrows(RuntimeException.class, () -> repository.findById(1));
     }
 
     @Test
@@ -385,7 +385,7 @@ class RepositoryBranchCoverageTest {
         when(mockResultSet.next()).thenReturn(false);
         
         JdbcReservationRepository repository = new JdbcReservationRepository();
-        Reservation reservation = new Reservation(null, 1L, 1L, LocalDate.now(), ReservationStatus.ACTIVE);
+        Reservation reservation = new Reservation(null, 1, 1, java.time.LocalDateTime.now(), java.time.LocalDateTime.now().plusDays(7), ReservationStatus.ACTIVE);
         
         assertThrows(RuntimeException.class, () -> repository.save(reservation));
     }
@@ -396,7 +396,7 @@ class RepositoryBranchCoverageTest {
         when(mockStatement.executeUpdate()).thenReturn(0);
         
         JdbcReservationRepository repository = new JdbcReservationRepository();
-        Reservation reservation = new Reservation(999L, 1L, 1L, LocalDate.now(), ReservationStatus.CANCELLED);
+        Reservation reservation = new Reservation(999, 1, 1, java.time.LocalDateTime.now(), java.time.LocalDateTime.now().plusDays(7), ReservationStatus.CANCELLED);
         
         assertThrows(RuntimeException.class, () -> repository.update(reservation));
     }

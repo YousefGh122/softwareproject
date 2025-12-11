@@ -289,7 +289,7 @@ public class UserFrame extends JFrame {
                 if ("ACTIVE".equals(loan.getStatus())) {
                     // Get item details
                     MediaItem item = libraryService.searchItems("").stream()
-                            .filter(i -> i.getItemId() == loan.getItemId())
+                            .filter(i -> i.getItemId().equals(loan.getItemId()))
                             .findFirst()
                             .orElse(null);
                     

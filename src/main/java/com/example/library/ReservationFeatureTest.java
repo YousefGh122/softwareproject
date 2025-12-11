@@ -19,10 +19,11 @@ import java.util.List;
  */
 public class ReservationFeatureTest {
     
+    private static final String SEPARATOR = SEPARATOR;
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     
     public static void main(String[] args) {
-        System.out.println("==========================================");
+        System.out.println(SEPARATOR);
         System.out.println("  Reservation Feature Test");
         System.out.println("==========================================\n");
         
@@ -144,10 +145,10 @@ public class ReservationFeatureTest {
             System.out.println("✓ Test data cleaned up\n");
             
             // Summary
-            System.out.println("==========================================");
+            System.out.println(SEPARATOR);
             System.out.println("  ✅ ALL TESTS PASSED!");
             System.out.println("  Reservation feature is working correctly");
-            System.out.println("==========================================");
+            System.out.println(SEPARATOR);
             
         } catch (Exception e) {
             System.err.println("\n❌ TEST FAILED!");

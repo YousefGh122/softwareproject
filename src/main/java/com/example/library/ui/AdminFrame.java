@@ -123,14 +123,14 @@ public class AdminFrame extends JFrame {
         
         // Add fields to form
         int row = 0;
-        addFormField(formPanel, gbc, row++, "Title*:", titleField);
-        addFormField(formPanel, gbc, row++, "Author*:", authorField);
-        addFormField(formPanel, gbc, row++, "Type*:", typeCombo);
-        addFormField(formPanel, gbc, row++, ISBN_LABEL, isbnField);
-        addFormField(formPanel, gbc, row++, PUBLISHER_LABEL, publisherField);
-        addFormField(formPanel, gbc, row++, "Publication Date (YYYY-MM-DD):", publicationDateField);
-        addFormField(formPanel, gbc, row++, "Total Copies*:", totalCopiesField);
-        addFormField(formPanel, gbc, row++, "Late Fee Per Day*:", lateFeesField);
+        UIHelper.addFormField(formPanel, gbc, row++, "Title*:", titleField);
+        UIHelper.addFormField(formPanel, gbc, row++, "Author*:", authorField);
+        UIHelper.addFormField(formPanel, gbc, row++, "Type*:", typeCombo);
+        UIHelper.addFormField(formPanel, gbc, row++, ISBN_LABEL, isbnField);
+        UIHelper.addFormField(formPanel, gbc, row++, PUBLISHER_LABEL, publisherField);
+        UIHelper.addFormField(formPanel, gbc, row++, "Publication Date (YYYY-MM-DD):", publicationDateField);
+        UIHelper.addFormField(formPanel, gbc, row++, "Total Copies*:", totalCopiesField);
+        UIHelper.addFormField(formPanel, gbc, row++, "Late Fee Per Day*:", lateFeesField);
         
         panel.add(formPanel, BorderLayout.CENTER);
         
@@ -162,16 +162,7 @@ public class AdminFrame extends JFrame {
         return panel;
     }
     
-    private void addFormField(JPanel panel, GridBagConstraints gbc, int row, String label, JComponent field) {
-        gbc.gridx = 0;
-        gbc.gridy = row;
-        gbc.weightx = 0.3;
-        panel.add(new JLabel(label), gbc);
-        
-        gbc.gridx = 1;
-        gbc.weightx = 0.7;
-        panel.add(field, gbc);
-    }
+
     
     private void saveMediaItem(JTextField titleField, JTextField authorField, JComboBox<String> typeCombo,
                                 JTextField isbnField, JTextField publisherField, JTextField publicationDateField,
@@ -346,22 +337,7 @@ public class AdminFrame extends JFrame {
                 items = libraryService.searchItems(keyword);
             }
             
-            // Clear table
-            tableModel.setRowCount(0);
-            
-            // Add items to table
-            for (MediaItem item : items) {
-                Object[] row = {
-                        item.getItemId(),
-                        item.getTitle(),
-                        item.getAuthor(),
-                        item.getType(),
-                        item.getIsbn() != null ? item.getIsbn() : "",
-                        item.getPublisher() != null ? item.getPublisher() : "",
-                        item.getAvailableCopies() + "/" + item.getTotalCopies()
-                };
-                tableModel.addRow(row);
-            }
+            UIHelper.populateItemsTable(tableModel, items);
             
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Error searching items: " + ex.getMessage(),
@@ -400,17 +376,17 @@ public class AdminFrame extends JFrame {
             gbc.anchor = GridBagConstraints.WEST;
             
             int row = 0;
-            addDetailField(detailsPanel, gbc, row++, "Item ID:", String.valueOf(item.getItemId()));
-            addDetailField(detailsPanel, gbc, row++, "Title:", item.getTitle());
-            addDetailField(detailsPanel, gbc, row++, "Author:", item.getAuthor());
-            addDetailField(detailsPanel, gbc, row++, "Type:", item.getType());
-            addDetailField(detailsPanel, gbc, row++, ISBN_LABEL, item.getIsbn() != null ? item.getIsbn() : "N/A");
-            addDetailField(detailsPanel, gbc, row++, PUBLISHER_LABEL, item.getPublisher() != null ? item.getPublisher() : "N/A");
-            addDetailField(detailsPanel, gbc, row++, "Publication Date:", 
-                    item.getPublicationDate() != null ? item.getPublicationDate().toString() : "N/A");
-            addDetailField(detailsPanel, gbc, row++, "Total Copies:", String.valueOf(item.getTotalCopies()));
-            addDetailField(detailsPanel, gbc, row++, "Available Copies:", String.valueOf(item.getAvailableCopies()));
-            addDetailField(detailsPanel, gbc, row++, "Late Fee Per Day:", "$" + item.getLateFeesPerDay());
+            UIHelper.addDetailField(detailsPanel, gbc, row++, "Item ID:", String.valueOf(item.getItemId()), FONT_ARIAL);
+            UIHelper.addDetailField(detailsPanel, gbc, row++, "Title:", item.getTitle(), FONT_ARIAL);
+            UIHelper.addDetailField(detailsPanel, gbc, row++, "Author:", item.getAuthor(), FONT_ARIAL);
+            UIHelper.addDetailField(detailsPanel, gbc, row++, "Type:", item.getType(), FONT_ARIAL);
+            UIHelper.addDetailField(detailsPanel, gbc, row++, ISBN_LABEL, item.getIsbn() != null ? item.getIsbn() : "N/A", FONT_ARIAL);
+            UIHelper.addDetailField(detailsPanel, gbc, row++, PUBLISHER_LABEL, item.getPublisher() != null ? item.getPublisher() : "N/A", FONT_ARIAL);
+            UIHelper.addDetailField(detailsPanel, gbc, row++, "Publication Date:", 
+                    item.getPublicationDate() != null ? item.getPublicationDate().toString() : "N/A", FONT_ARIAL);
+            UIHelper.addDetailField(detailsPanel, gbc, row++, "Total Copies:", String.valueOf(item.getTotalCopies()), FONT_ARIAL);
+            UIHelper.addDetailField(detailsPanel, gbc, row++, "Available Copies:", String.valueOf(item.getAvailableCopies()), FONT_ARIAL);
+            UIHelper.addDetailField(detailsPanel, gbc, row++, "Late Fee Per Day:", "$" + item.getLateFeesPerDay(), FONT_ARIAL);
             
             JButton closeButton = new JButton("Close");
             closeButton.addActionListener(e -> dialog.dispose());
@@ -427,15 +403,7 @@ public class AdminFrame extends JFrame {
         }
     }
     
-    private void addDetailField(JPanel panel, GridBagConstraints gbc, int row, String label, String value) {
-        gbc.gridx = 0; gbc.gridy = row; gbc.weightx = 0.3; gbc.gridwidth = 1;
-        JLabel labelComp = new JLabel(label);
-        labelComp.setFont(new Font(FONT_ARIAL, Font.BOLD, 12));
-        panel.add(labelComp, gbc);
-        
-        gbc.gridx = 1; gbc.weightx = 0.7;
-        panel.add(new JLabel(value), gbc);
-    }
+
     
     private void editItem(JTable table, DefaultTableModel tableModel) {
         int selectedRow = table.getSelectedRow();
@@ -478,15 +446,15 @@ public class AdminFrame extends JFrame {
             JTextField lateFeesField = new JTextField(item.getLateFeesPerDay().toString(), 25);
             
             int row = 0;
-            addFormField(formPanel, gbc, row++, "Title*:", titleField);
-            addFormField(formPanel, gbc, row++, "Author*:", authorField);
-            addFormField(formPanel, gbc, row++, "Type*:", typeCombo);
-            addFormField(formPanel, gbc, row++, ISBN_LABEL, isbnField);
-            addFormField(formPanel, gbc, row++, PUBLISHER_LABEL, publisherField);
-            addFormField(formPanel, gbc, row++, "Publication Date (YYYY-MM-DD):", pubDateField);
-            addFormField(formPanel, gbc, row++, "Total Copies*:", totalCopiesField);
-            addFormField(formPanel, gbc, row++, "Available Copies*:", availableCopiesField);
-            addFormField(formPanel, gbc, row++, "Late Fee Per Day*:", lateFeesField);
+            UIHelper.addFormField(formPanel, gbc, row++, "Title*:", titleField);
+            UIHelper.addFormField(formPanel, gbc, row++, "Author*:", authorField);
+            UIHelper.addFormField(formPanel, gbc, row++, "Type*:", typeCombo);
+            UIHelper.addFormField(formPanel, gbc, row++, ISBN_LABEL, isbnField);
+            UIHelper.addFormField(formPanel, gbc, row++, PUBLISHER_LABEL, publisherField);
+            UIHelper.addFormField(formPanel, gbc, row++, "Publication Date (YYYY-MM-DD):", pubDateField);
+            UIHelper.addFormField(formPanel, gbc, row++, "Total Copies*:", totalCopiesField);
+            UIHelper.addFormField(formPanel, gbc, row++, "Available Copies*:", availableCopiesField);
+            UIHelper.addFormField(formPanel, gbc, row++, "Late Fee Per Day*:", lateFeesField);
             
             JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
             JButton saveButton = new JButton("Save Changes");

@@ -46,7 +46,6 @@ class RepositoryBranchCoverageTest {
     @Test
     void testUserRepository_ExistsByUsername_SQLException() throws SQLException {
         when(mockConnection.prepareStatement(anyString())).thenThrow(new SQLException("Database error"));
-            }
         
         JdbcUserRepository repository = new JdbcUserRepository();
         

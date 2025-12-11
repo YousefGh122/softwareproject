@@ -129,23 +129,7 @@ public class UserFrame extends JFrame {
     private void searchItems(DefaultTableModel tableModel, String keyword) {
         try {
             List<MediaItem> items = libraryService.searchItems(keyword);
-            
-            // Clear table
-            tableModel.setRowCount(0);
-            
-            // Add items to table
-            for (MediaItem item : items) {
-                Object[] row = {
-                        item.getItemId(),
-                        item.getTitle(),
-                        item.getAuthor(),
-                        item.getType(),
-                        item.getIsbn() != null ? item.getIsbn() : "",
-                        item.getPublisher() != null ? item.getPublisher() : "",
-                        item.getAvailableCopies() + "/" + item.getTotalCopies()
-                };
-                tableModel.addRow(row);
-            }
+            UIHelper.populateItemsTable(tableModel, items);
             
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Error searching items: " + ex.getMessage(),

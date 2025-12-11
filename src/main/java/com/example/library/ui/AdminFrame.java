@@ -268,12 +268,7 @@ public class AdminFrame extends JFrame {
         
         // Table
         String[] columns = {"ID", "Title", "Author", "Type", ISBN_TEXT, PUBLISHER_TEXT, "Available/Total"};
-        DefaultTableModel tableModel = new DefaultTableModel(columns, 0) {
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return false;
-            }
-        };
+        DefaultTableModel tableModel = UIHelper.createNonEditableTableModel(columns);
         JTable table = new JTable(tableModel);
         JScrollPane scrollPane = new JScrollPane(table);
         panel.add(scrollPane, BorderLayout.CENTER);
@@ -571,12 +566,7 @@ public class AdminFrame extends JFrame {
         
         // Table
         String[] columns = {LOAN_ID_TEXT, USER_ID_TEXT, "Item ID", "Loan Date", "Due Date", "Days Overdue", STATUS_TEXT};
-        DefaultTableModel tableModel = new DefaultTableModel(columns, 0) {
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return false;
-            }
-        };
+        DefaultTableModel tableModel = UIHelper.createNonEditableTableModel(columns);
         JTable table = new JTable(tableModel);
         JScrollPane scrollPane = new JScrollPane(table);
         panel.add(scrollPane, BorderLayout.CENTER);

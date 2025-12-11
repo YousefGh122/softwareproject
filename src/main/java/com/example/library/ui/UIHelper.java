@@ -65,4 +65,23 @@ public final class UIHelper {
             tableModel.addRow(row);
         }
     }
+    
+    /**
+     * Creates a non-editable table model with the given column names.
+     */
+    public static DefaultTableModel createNonEditableTableModel(String[] columns) {
+        return new DefaultTableModel(columns, 0) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+    }
+    
+    /**
+     * Clears all rows from a table model.
+     */
+    public static void clearTableModel(DefaultTableModel tableModel) {
+        tableModel.setRowCount(0);
+    }
 }

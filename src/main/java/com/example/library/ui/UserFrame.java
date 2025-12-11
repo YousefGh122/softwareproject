@@ -101,12 +101,7 @@ public class UserFrame extends JFrame {
         
         // Table
         String[] columns = {"Item ID", "Title", "Author", "Type", ISBN_TEXT, PUBLISHER_TEXT, "Available/Total"};
-        DefaultTableModel tableModel = new DefaultTableModel(columns, 0) {
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return false;
-            }
-        };
+        DefaultTableModel tableModel = UIHelper.createNonEditableTableModel(columns);
         JTable table = new JTable(tableModel);
         JScrollPane scrollPane = new JScrollPane(table);
         panel.add(scrollPane, BorderLayout.CENTER);

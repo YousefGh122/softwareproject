@@ -219,7 +219,7 @@ public class JdbcUserRepository implements UserRepository {
     
     @Override
     public boolean existsByEmail(String email) {
-        String sql = "SELECT COUNT(*) FROM app_user WHERE email = ?";
+        String sql = "SELECT COUNT(*) FROM app_user WHERE LOWER(email) = LOWER(?)";
         
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {

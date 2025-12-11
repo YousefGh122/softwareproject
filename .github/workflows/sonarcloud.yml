@@ -23,6 +23,9 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
           cache: maven
+      
+      - name: Start Testcontainers
+        run: docker pull postgres:15
           
       - name: Cache SonarCloud packages
         uses: actions/cache@v3

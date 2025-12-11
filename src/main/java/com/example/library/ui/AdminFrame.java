@@ -27,6 +27,10 @@ public class AdminFrame extends JFrame {
     private static final String BUSINESS_ERROR_TITLE = "Business Error";
     private static final String FONT_ARIAL = "Arial";
     private static final String LOGOUT_TEXT = "Logout";
+    private static final String DATE_FORMAT = "yyyy-MM-dd";
+    private static final String USER_ID_TEXT = USER_ID_TEXT;
+    private static final String LOAN_ID_TEXT = LOAN_ID_TEXT;
+    private static final String STATUS_TEXT = STATUS_TEXT;
     
     private final transient User currentUser;
     private final transient LibraryService libraryService;
@@ -589,7 +593,7 @@ public class AdminFrame extends JFrame {
         panel.add(headerPanel, BorderLayout.NORTH);
         
         // Table
-        String[] columns = {"Loan ID", "User ID", "Item ID", "Loan Date", "Due Date", "Days Overdue", "Status"};
+        String[] columns = {LOAN_ID_TEXT, USER_ID_TEXT, "Item ID", "Loan Date", "Due Date", "Days Overdue", STATUS_TEXT};
         DefaultTableModel tableModel = new DefaultTableModel(columns, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -617,7 +621,7 @@ public class AdminFrame extends JFrame {
             // Clear table
             tableModel.setRowCount(0);
             
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMAT);
             
             // Add loans to table
             for (Loan loan : overdueLoans) {
@@ -657,7 +661,7 @@ public class AdminFrame extends JFrame {
         panel.add(inputPanel, BorderLayout.NORTH);
         
         // Table
-        String[] columns = {"Loan ID", "User ID", "Item ID", "Loan Date", "Due Date", "Return Date", "Status"};
+        String[] columns = {LOAN_ID_TEXT, USER_ID_TEXT, "Item ID", "Loan Date", "Due Date", "Return Date", STATUS_TEXT};
         DefaultTableModel tableModel = new DefaultTableModel(columns, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -705,7 +709,7 @@ public class AdminFrame extends JFrame {
             // Clear table
             tableModel.setRowCount(0);
             
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMAT);
             
             // Add loans to table
             for (Loan loan : loans) {
@@ -747,7 +751,7 @@ public class AdminFrame extends JFrame {
             // Clear table
             tableModel.setRowCount(0);
             
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMAT);
             
             // Add all loans to table
             for (Loan loan : allLoans) {
@@ -786,7 +790,7 @@ public class AdminFrame extends JFrame {
         panel.add(inputPanel, BorderLayout.NORTH);
         
         // Table
-        String[] columns = {"Fine ID", "User ID", "Loan ID", "Amount (NIS)", "Issued Date", "Status", "Paid Date"};
+        String[] columns = {"Fine ID", USER_ID_TEXT, LOAN_ID_TEXT, "Amount (NIS)", "Issued Date", STATUS_TEXT, "Paid Date"};
         DefaultTableModel tableModel = new DefaultTableModel(columns, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -854,7 +858,7 @@ public class AdminFrame extends JFrame {
             // Clear table
             tableModel.setRowCount(0);
             
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMAT);
             
             // Add fines to table
             for (com.example.library.domain.Fine fine : filteredFines) {
@@ -892,7 +896,7 @@ public class AdminFrame extends JFrame {
             // Clear table
             tableModel.setRowCount(0);
             
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMAT);
             
             // Add all fines to table
             for (com.example.library.domain.Fine fine : allFines) {
@@ -1029,7 +1033,7 @@ public class AdminFrame extends JFrame {
         panel.add(topPanel, BorderLayout.NORTH);
         
         // Table to display users
-        String[] columns = {"User ID", "Username", "Email", "Role", "Created At"};
+        String[] columns = {USER_ID_TEXT, "Username", "Email", "Role", "Created At"};
         DefaultTableModel tableModel = new DefaultTableModel(columns, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {

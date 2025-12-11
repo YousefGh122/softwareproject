@@ -25,6 +25,9 @@ public class UserFrame extends JFrame {
     private static final String BUSINESS_ERROR_TITLE = "Business Error";
     private static final String FONT_ARIAL = "Arial";
     private static final String LOGOUT_TEXT = "Logout";
+    private static final String DATE_FORMAT = "yyyy-MM-dd";
+    private static final String LOAN_ID_TEXT = LOAN_ID_TEXT;
+    private static final String STATUS_TEXT = STATUS_TEXT;
     
     private final transient User currentUser;
     private final transient LibraryService libraryService;
@@ -197,7 +200,7 @@ public class UserFrame extends JFrame {
             LocalDate today = LocalDate.now();
             Loan loan = libraryService.borrowItem(currentUser.getUserId(), itemId, today);
             
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMAT);
             String message = "✓ Item borrowed successfully!\n\n" +
                     "Loan ID: " + loan.getLoanId() + "\n" +
                     "Item ID: " + loan.getItemId() + "\n" +
@@ -231,7 +234,7 @@ public class UserFrame extends JFrame {
         panel.add(titleLabel, BorderLayout.NORTH);
         
         // Table
-        String[] columns = {"Loan ID", "Item ID", "Title", "Loan Date", "Due Date", "Days Until Due", "Late Fee/Day", "Return"};
+        String[] columns = {LOAN_ID_TEXT, "Item ID", "Title", "Loan Date", "Due Date", "Days Until Due", "Late Fee/Day", "Return"};
         DefaultTableModel tableModel = new DefaultTableModel(columns, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -290,7 +293,7 @@ public class UserFrame extends JFrame {
             // Clear table
             tableModel.setRowCount(0);
             
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMAT);
             LocalDate today = LocalDate.now();
             
             // Only show ACTIVE loans
@@ -375,7 +378,7 @@ public class UserFrame extends JFrame {
         panel.add(formPanel, BorderLayout.NORTH);
         
         // Table for displaying user's loans
-        String[] columns = {"Loan ID", "Item ID", "Loan Date", "Due Date", "Return Date", "Status"};
+        String[] columns = {LOAN_ID_TEXT, "Item ID", "Loan Date", "Due Date", "Return Date", STATUS_TEXT};
         DefaultTableModel tableModel = new DefaultTableModel(columns, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -422,7 +425,7 @@ public class UserFrame extends JFrame {
             // Clear table
             tableModel.setRowCount(0);
             
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMAT);
             
             // Add loans to table
             for (Loan loan : loans) {
@@ -486,7 +489,7 @@ public class UserFrame extends JFrame {
         panel.add(buttonPanel, BorderLayout.NORTH);
         
         // Table
-        String[] columns = {"Fine ID", "Loan ID", "Amount (NIS)", "Issued Date", "Status", "Paid Date"};
+        String[] columns = {"Fine ID", LOAN_ID_TEXT, "Amount (NIS)", "Issued Date", STATUS_TEXT, "Paid Date"};
         DefaultTableModel tableModel = new DefaultTableModel(columns, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -547,7 +550,7 @@ public class UserFrame extends JFrame {
             // Clear table
             tableModel.setRowCount(0);
             
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMAT);
             
             // Add fines to table
             for (Fine fine : fines) {

@@ -20,11 +20,15 @@ import java.util.List;
  */
 public class UserFrame extends JFrame {
     
-    private final User currentUser;
-    private final LibraryService libraryService;
-    private final PaymentService paymentService;
-    private final AuthService authService;
-    private final com.example.library.repository.UserRepository userRepository;
+    private static final String ERROR_TITLE = "Error";
+    private static final String VALIDATION_ERROR_TITLE = "Validation Error";
+    private static final String BUSINESS_ERROR_TITLE = "Business Error";
+    
+    private final transient User currentUser;
+    private final transient LibraryService libraryService;
+    private final transient PaymentService paymentService;
+    private final transient AuthService authService;
+    private final transient com.example.library.repository.UserRepository userRepository;
     
     private JTabbedPane tabbedPane;
     
@@ -136,7 +140,7 @@ public class UserFrame extends JFrame {
             
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Error searching items: " + ex.getMessage(),
-                    "Error", JOptionPane.ERROR_MESSAGE);
+                    ERROR_TITLE, JOptionPane.ERROR_MESSAGE);
         }
     }
     
@@ -144,7 +148,7 @@ public class UserFrame extends JFrame {
         JPanel panel = new JPanel(new BorderLayout(10, 10));
         panel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
         
-        // Form panel
+       
         JPanel formPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         formPanel.add(new JLabel("Item ID:"));
         JTextField itemIdField = new JTextField(10);
@@ -154,7 +158,7 @@ public class UserFrame extends JFrame {
         
         panel.add(formPanel, BorderLayout.NORTH);
         
-        // Info panel
+        
         JTextArea infoArea = new JTextArea();
         infoArea.setEditable(false);
         infoArea.setFont(new Font("Monospaced", Font.PLAIN, 12));
@@ -164,7 +168,7 @@ public class UserFrame extends JFrame {
         JScrollPane scrollPane = new JScrollPane(infoArea);
         panel.add(scrollPane, BorderLayout.CENTER);
         
-        // Borrow action
+       
         borrowButton.addActionListener(e -> {
             String itemIdStr = itemIdField.getText().trim();
             if (itemIdStr.isEmpty()) {
@@ -333,7 +337,7 @@ public class UserFrame extends JFrame {
             
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Error loading active loans: " + ex.getMessage(),
-                    "Error", JOptionPane.ERROR_MESSAGE);
+                    ERROR_TITLE, JOptionPane.ERROR_MESSAGE);
         }
     }
     
@@ -344,11 +348,11 @@ public class UserFrame extends JFrame {
                     "Success", JOptionPane.INFORMATION_MESSAGE);
             loadActiveLoans(tableModel); // Refresh
         } catch (BusinessException ex) {
-            JOptionPane.showMessageDialog(this, "Cannot return item: " + ex.getMessage(),
-                    "Business Error", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, ex.getMessage(),
+                    BUSINESS_ERROR_TITLE, JOptionPane.WARNING_MESSAGE);
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Error returning item: " + ex.getMessage(),
-                    "Error", JOptionPane.ERROR_MESSAGE);
+                    ERROR_TITLE, JOptionPane.ERROR_MESSAGE);GE);
         }
     }
     
@@ -433,7 +437,7 @@ public class UserFrame extends JFrame {
             
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Error loading loans: " + ex.getMessage(),
-                    "Error", JOptionPane.ERROR_MESSAGE);
+                    ERROR_TITLE, JOptionPane.ERROR_MESSAGE);
         }
     }
     
@@ -560,7 +564,7 @@ public class UserFrame extends JFrame {
             
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Error loading fines: " + ex.getMessage(),
-                    "Error", JOptionPane.ERROR_MESSAGE);
+                    ERROR_TITLE, JOptionPane.ERROR_MESSAGE);
         }
     }
     
@@ -587,7 +591,7 @@ public class UserFrame extends JFrame {
             
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Error paying fines: " + ex.getMessage(),
-                    "Error", JOptionPane.ERROR_MESSAGE);
+                    ERROR_TITLE, JOptionPane.ERROR_MESSAGE);
         }
     }
     
@@ -600,7 +604,7 @@ public class UserFrame extends JFrame {
             
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Error paying fine: " + ex.getMessage(),
-                    "Error", JOptionPane.ERROR_MESSAGE);
+                    ERROR_TITLE, JOptionPane.ERROR_MESSAGE);
         }
     }
     

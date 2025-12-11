@@ -12,13 +12,13 @@ import java.awt.*;
  */
 public class LoginFrame extends JFrame {
     
-    private final AuthService authService;
-    private final LibraryService libraryService;
-    private final PaymentService paymentService;
-    private final com.example.library.repository.UserRepository userRepository;
-    private final com.example.library.repository.MediaItemRepository mediaItemRepository;
-    private final com.example.library.repository.FineRepository fineRepository;
-    private final com.example.library.repository.LoanRepository loanRepository;
+    private final transient AuthService authService;
+    private final transient LibraryService libraryService;
+    private final transient PaymentService paymentService;
+    private final transient com.example.library.repository.UserRepository userRepository;
+    private final transient com.example.library.repository.MediaItemRepository mediaItemRepository;
+    private final transient com.example.library.repository.FineRepository fineRepository;
+    private final transient com.example.library.repository.LoanRepository loanRepository;
     
     private JTextField usernameField;
     private JPasswordField passwordField;

@@ -140,8 +140,7 @@ class ComprehensiveUserRepositoryTest {
     
     @Test
     void testExistsByEmail_CaseSensitivity() {
-        // Arrange
-        User user = new User();
+                User user = new User();
         user.setUsername("comp_user_email2");
         user.setPassword("password123");
         user.setEmail("CompEmail@Test.COM");
@@ -149,13 +148,12 @@ class ComprehensiveUserRepositoryTest {
         user.setCreatedAt(LocalDateTime.now());
         userRepository.save(user);
         
-        // Act
+        
         boolean existsOriginal = userRepository.existsByEmail("CompEmail@Test.COM");
         boolean existsLowerCase = userRepository.existsByEmail("compemail@test.com");
         
-        // Assert
+        
         assertTrue(existsOriginal);
-        // Email comparison might be case-insensitive depending on DB collation
-        assertNotNull(existsLowerCase); // Just verify it doesn't crash
+        assertTrue(existsLowerCase); 
     }
 }

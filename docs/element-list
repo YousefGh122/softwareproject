@@ -1,0 +1,8 @@
+com.example.library
+com.example.library.domain
+com.example.library.notification
+com.example.library.repository
+com.example.library.service
+com.example.library.service.fine
+com.example.library.ui
+com.example.library.util

@@ -629,12 +629,7 @@ public class AdminFrame extends JFrame {
         
         // Table
         String[] columns = {LOAN_ID_TEXT, USER_ID_TEXT, "Item ID", "Loan Date", "Due Date", "Return Date", STATUS_TEXT};
-        DefaultTableModel tableModel = new DefaultTableModel(columns, 0) {
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return false;
-            }
-        };
+        DefaultTableModel tableModel = UIHelper.createNonEditableTableModel(columns);
         JTable table = new JTable(tableModel);
         JScrollPane scrollPane = new JScrollPane(table);
         panel.add(scrollPane, BorderLayout.CENTER);
@@ -758,12 +753,7 @@ public class AdminFrame extends JFrame {
         
         // Table
         String[] columns = {"Fine ID", USER_ID_TEXT, LOAN_ID_TEXT, "Amount (NIS)", "Issued Date", STATUS_TEXT, "Paid Date"};
-        DefaultTableModel tableModel = new DefaultTableModel(columns, 0) {
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return false;
-            }
-        };
+        DefaultTableModel tableModel = UIHelper.createNonEditableTableModel(columns);
         JTable table = new JTable(tableModel);
         JScrollPane scrollPane = new JScrollPane(table);
         panel.add(scrollPane, BorderLayout.CENTER);
@@ -1001,12 +991,7 @@ public class AdminFrame extends JFrame {
         
         // Table to display users
         String[] columns = {USER_ID_TEXT, "Username", "Email", "Role", "Created At"};
-        DefaultTableModel tableModel = new DefaultTableModel(columns, 0) {
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return false;
-            }
-        };
+        DefaultTableModel tableModel = UIHelper.createNonEditableTableModel(columns);
         JTable userTable = new JTable(tableModel);
         userTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         JScrollPane scrollPane = new JScrollPane(userTable);

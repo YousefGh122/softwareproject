@@ -218,12 +218,7 @@ public class UserFrame extends JFrame {
         
         // Table
         String[] columns = {LOAN_ID_TEXT, "Item ID", "Title", "Loan Date", "Due Date", "Days Until Due", "Late Fee/Day", "Return"};
-        DefaultTableModel tableModel = new DefaultTableModel(columns, 0) {
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return false;
-            }
-        };
+        DefaultTableModel tableModel = UIHelper.createNonEditableTableModel(columns);
         JTable table = new JTable(tableModel);
         
         // Add button column renderer
@@ -362,12 +357,7 @@ public class UserFrame extends JFrame {
         
         // Table for displaying user's loans
         String[] columns = {LOAN_ID_TEXT, "Item ID", "Loan Date", "Due Date", "Return Date", STATUS_TEXT};
-        DefaultTableModel tableModel = new DefaultTableModel(columns, 0) {
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return false;
-            }
-        };
+        DefaultTableModel tableModel = UIHelper.createNonEditableTableModel(columns);
         JTable table = new JTable(tableModel);
         JScrollPane scrollPane = new JScrollPane(table);
         panel.add(scrollPane, BorderLayout.CENTER);
@@ -473,12 +463,7 @@ public class UserFrame extends JFrame {
         
         // Table
         String[] columns = {"Fine ID", LOAN_ID_TEXT, "Amount (NIS)", "Issued Date", STATUS_TEXT, "Paid Date"};
-        DefaultTableModel tableModel = new DefaultTableModel(columns, 0) {
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return false;
-            }
-        };
+        DefaultTableModel tableModel = UIHelper.createNonEditableTableModel(columns);
         JTable table = new JTable(tableModel);
         JScrollPane scrollPane = new JScrollPane(table);
         panel.add(scrollPane, BorderLayout.CENTER);

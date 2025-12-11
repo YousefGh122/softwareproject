@@ -25,6 +25,8 @@ public class AdminFrame extends JFrame {
     private static final String ERROR_TITLE = "Error";
     private static final String VALIDATION_ERROR_TITLE = "Validation Error";
     private static final String BUSINESS_ERROR_TITLE = "Business Error";
+    private static final String FONT_ARIAL = "Arial";
+    private static final String LOGOUT_TEXT = "Logout";
     
     private final transient User currentUser;
     private final transient LibraryService libraryService;
@@ -52,7 +54,7 @@ public class AdminFrame extends JFrame {
     
     private void initializeUI() {
         setTitle("Library Management System - Admin Panel");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setSize(900, 600);
         setLocationRelativeTo(null);
         
@@ -75,10 +77,10 @@ public class AdminFrame extends JFrame {
         JPanel headerPanel = new JPanel(new BorderLayout());
         headerPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         JLabel welcomeLabel = new JLabel("Welcome, " + currentUser.getUsername() + " (Admin)");
-        welcomeLabel.setFont(new Font("Arial", Font.BOLD, 14));
+        welcomeLabel.setFont(new Font(FONT_ARIAL, Font.BOLD, 14));
         headerPanel.add(welcomeLabel, BorderLayout.WEST);
         
-        JButton logoutButton = new JButton("Logout");
+        JButton logoutButton = new JButton(LOGOUT_TEXT);
         logoutButton.addActionListener(e -> logout());
         headerPanel.add(logoutButton, BorderLayout.EAST);
         
@@ -415,7 +417,7 @@ public class AdminFrame extends JFrame {
     private void addDetailField(JPanel panel, GridBagConstraints gbc, int row, String label, String value) {
         gbc.gridx = 0; gbc.gridy = row; gbc.weightx = 0.3; gbc.gridwidth = 1;
         JLabel labelComp = new JLabel(label);
-        labelComp.setFont(new Font("Arial", Font.BOLD, 12));
+        labelComp.setFont(new Font(FONT_ARIAL, Font.BOLD, 12));
         panel.add(labelComp, gbc);
         
         gbc.gridx = 1; gbc.weightx = 0.7;
@@ -798,7 +800,7 @@ public class AdminFrame extends JFrame {
         // Total panel
         JPanel totalPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         JLabel totalLabel = new JLabel("Total Unpaid: 0.00 NIS");
-        totalLabel.setFont(new Font("Arial", Font.BOLD, 14));
+        totalLabel.setFont(new Font(FONT_ARIAL, Font.BOLD, 14));
         totalPanel.add(totalLabel);
         panel.add(totalPanel, BorderLayout.SOUTH);
         
@@ -942,7 +944,7 @@ public class AdminFrame extends JFrame {
         gbc.gridy = 0;
         gbc.gridwidth = 2;
         JLabel titleLabel = new JLabel("Administrator Profile");
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 18));
+        titleLabel.setFont(new Font(FONT_ARIAL, Font.BOLD, 18));
         infoPanel.add(titleLabel, gbc);
         
         gbc.gridwidth = 1;
@@ -982,7 +984,7 @@ public class AdminFrame extends JFrame {
         gbc.gridx = 1;
         JLabel roleLabel = new JLabel(currentUser.getRole());
         roleLabel.setForeground(Color.BLUE);
-        roleLabel.setFont(new Font("Arial", Font.BOLD, 12));
+        roleLabel.setFont(new Font(FONT_ARIAL, Font.BOLD, 12));
         infoPanel.add(roleLabel, gbc);
         
         gbc.gridy++;
@@ -998,7 +1000,7 @@ public class AdminFrame extends JFrame {
         
         // Logout button panel
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        JButton logoutButton = new JButton("Logout");
+        JButton logoutButton = new JButton(LOGOUT_TEXT);
         logoutButton.setPreferredSize(new Dimension(150, 35));
         logoutButton.addActionListener(e -> logout());
         buttonPanel.add(logoutButton);
@@ -1015,7 +1017,7 @@ public class AdminFrame extends JFrame {
         // Top panel with button
         JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         JButton addUserButton = new JButton("Add New User");
-        addUserButton.setFont(new Font("Arial", Font.BOLD, 14));
+        addUserButton.setFont(new Font(FONT_ARIAL, Font.BOLD, 14));
         addUserButton.setPreferredSize(new Dimension(150, 35));
         addUserButton.addActionListener(e -> createNewUser());
         topPanel.add(addUserButton);
@@ -1214,7 +1216,7 @@ public class AdminFrame extends JFrame {
     
     private void logout() {
         int choice = JOptionPane.showConfirmDialog(this, "Are you sure you want to logout?",
-                "Logout", JOptionPane.YES_NO_OPTION);
+                LOGOUT_TEXT, JOptionPane.YES_NO_OPTION);
         if (choice == JOptionPane.YES_OPTION) {
             dispose();
             // Reopen login frame

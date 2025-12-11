@@ -2,6 +2,7 @@ package com.example.library.service;
 
 import com.example.library.domain.MediaItem;
 import com.example.library.domain.Reservation;
+import com.example.library.domain.ReservationStatus;
 import com.example.library.domain.User;
 import com.example.library.repository.MediaItemRepository;
 import com.example.library.repository.ReservationRepository;
@@ -62,7 +63,7 @@ public class ReservationServiceImpl implements ReservationService {
         reservation.setItemId(itemId);
         reservation.setReservationDate(LocalDateTime.now());
         reservation.setExpiryDate(LocalDateTime.now().plusHours(RESERVATION_EXPIRY_HOURS));
-        reservation.setStatus("ACTIVE");
+        reservation.setStatus(ReservationStatus.ACTIVE);
         
         return reservationRepository.save(reservation);
     }
@@ -83,12 +84,12 @@ public class ReservationServiceImpl implements ReservationService {
         }
         
         // Check if already cancelled or fulfilled
-        if (!"ACTIVE".equals(reservation.getStatus())) {
+        if (!ReservationStatus.ACTIVE.equals(reservation.getStatus())) {
             throw new BusinessException("Reservation is not active and cannot be cancelled.");
         }
         
         // Update status to CANCELLED
-        reservation.setStatus("CANCELLED");
+        reservation.setStatus(ReservationStatus.CANCELLED);
         reservationRepository.update(reservation);
     }
     
@@ -151,7 +152,7 @@ public class ReservationServiceImpl implements ReservationService {
         
         Reservation reservation = reservationOptional.get();
         
-        if (!"ACTIVE".equals(reservation.getStatus())) {
+        if (!ReservationStatus.ACTIVE.equals(reservation.getStatus())) {
             return -1;
         }
         

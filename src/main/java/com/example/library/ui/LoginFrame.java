@@ -12,6 +12,8 @@ import java.awt.*;
  */
 public class LoginFrame extends JFrame {
     
+    private static final String FONT_ARIAL = "Arial";
+    
     private final transient AuthService authService;
     private final transient LibraryService libraryService;
     private final transient PaymentService paymentService;
@@ -58,7 +60,7 @@ public class LoginFrame extends JFrame {
         
         // Title label
         JLabel titleLabel = new JLabel("Library Management System", SwingConstants.CENTER);
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 18));
+        titleLabel.setFont(new Font(FONT_ARIAL, Font.BOLD, 18));
         mainPanel.add(titleLabel, BorderLayout.NORTH);
         
         // Form panel with GridBagLayout for better alignment

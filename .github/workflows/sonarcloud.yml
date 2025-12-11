@@ -41,8 +41,11 @@ jobs:
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
           
-      - name: Build and analyze
+      - name: Build project
+        run: mvn -B clean compile -DskipTests
+          
+      - name: Analyze with SonarCloud
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: mvn -B clean package -DskipTests -Djacoco.skip=true org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=yousefgh122_softwareproject
+        run: mvn -B sonar:sonar -Dsonar.projectKey=yousefgh122_softwareproject -Dsonar.organization=yousefgh122 -Dsonar.host.url=https://sonarcloud.io

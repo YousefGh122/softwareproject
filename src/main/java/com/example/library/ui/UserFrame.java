@@ -173,7 +173,7 @@ public class UserFrame extends JFrame {
             String itemIdStr = itemIdField.getText().trim();
             if (itemIdStr.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Please enter an Item ID",
-                        "Validation Error", JOptionPane.ERROR_MESSAGE);
+                        VALIDATION_ERROR_TITLE, JOptionPane.ERROR_MESSAGE);
                 return;
             }
             
@@ -183,7 +183,7 @@ public class UserFrame extends JFrame {
                 itemIdField.setText("");
             } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(this, "Item ID must be a number",
-                        "Validation Error", JOptionPane.ERROR_MESSAGE);
+                        VALIDATION_ERROR_TITLE, JOptionPane.ERROR_MESSAGE);
             }
         });
         
@@ -210,11 +210,11 @@ public class UserFrame extends JFrame {
             
         } catch (BusinessException ex) {
             JOptionPane.showMessageDialog(this, "Cannot borrow item: " + ex.getMessage(),
-                    "Business Error", JOptionPane.WARNING_MESSAGE);
+                    BUSINESS_ERROR_TITLE, JOptionPane.WARNING_MESSAGE);
             infoArea.setText("✗ Cannot borrow item:\n" + ex.getMessage());
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Error borrowing item: " + ex.getMessage(),
-                    "Error", JOptionPane.ERROR_MESSAGE);
+                    ERROR_TITLE, JOptionPane.ERROR_MESSAGE);
             infoArea.setText("✗ Error:\n" + ex.getMessage());
         }
     }
@@ -389,7 +389,7 @@ public class UserFrame extends JFrame {
             String loanIdStr = loanIdField.getText().trim();
             if (loanIdStr.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Please enter a Loan ID",
-                        "Validation Error", JOptionPane.ERROR_MESSAGE);
+                        VALIDATION_ERROR_TITLE, JOptionPane.ERROR_MESSAGE);
                 return;
             }
             
@@ -400,7 +400,7 @@ public class UserFrame extends JFrame {
                 loadUserLoans(tableModel); // Refresh loans table
             } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(this, "Loan ID must be a number",
-                        "Validation Error", JOptionPane.ERROR_MESSAGE);
+                        VALIDATION_ERROR_TITLE, JOptionPane.ERROR_MESSAGE);
             }
         });
         
@@ -461,10 +461,10 @@ public class UserFrame extends JFrame {
             
         } catch (BusinessException ex) {
             JOptionPane.showMessageDialog(this, "Cannot return item: " + ex.getMessage(),
-                    "Business Error", JOptionPane.WARNING_MESSAGE);
+                    BUSINESS_ERROR_TITLE, JOptionPane.WARNING_MESSAGE);
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Error returning item: " + ex.getMessage(),
-                    "Error", JOptionPane.ERROR_MESSAGE);
+                    ERROR_TITLE, JOptionPane.ERROR_MESSAGE);
         }
     }
     

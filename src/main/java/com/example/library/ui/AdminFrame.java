@@ -22,14 +22,18 @@ import java.util.Optional;
  */
 public class AdminFrame extends JFrame {
     
-    private final User currentUser;
-    private final LibraryService libraryService;
-    private final PaymentService paymentService;
-    private final AuthService authService;
-    private final com.example.library.repository.UserRepository userRepository;
-    private final com.example.library.repository.MediaItemRepository mediaItemRepository;
-    private final com.example.library.repository.FineRepository fineRepository;
-    private final com.example.library.repository.LoanRepository loanRepository;
+    private static final String ERROR_TITLE = "Error";
+    private static final String VALIDATION_ERROR_TITLE = "Validation Error";
+    private static final String BUSINESS_ERROR_TITLE = "Business Error";
+    
+    private final transient User currentUser;
+    private final transient LibraryService libraryService;
+    private final transient PaymentService paymentService;
+    private final transient AuthService authService;
+    private final transient com.example.library.repository.UserRepository userRepository;
+    private final transient com.example.library.repository.MediaItemRepository mediaItemRepository;
+    private final transient com.example.library.repository.FineRepository fineRepository;
+    private final transient com.example.library.repository.LoanRepository loanRepository;
     
     private JTabbedPane tabbedPane;
     
@@ -167,7 +171,7 @@ public class AdminFrame extends JFrame {
             
             if (title.isEmpty() || author.isEmpty() || totalCopiesStr.isEmpty() || lateFeesStr.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Please fill in all required fields (*)",
-                        "Validation Error", JOptionPane.ERROR_MESSAGE);
+                        VALIDATION_ERROR_TITLE, JOptionPane.ERROR_MESSAGE);
                 return;
             }
             
@@ -177,13 +181,13 @@ public class AdminFrame extends JFrame {
             
             if (totalCopies <= 0) {
                 JOptionPane.showMessageDialog(this, "Total copies must be greater than 0",
-                        "Validation Error", JOptionPane.ERROR_MESSAGE);
+                        VALIDATION_ERROR_TITLE, JOptionPane.ERROR_MESSAGE);
                 return;
             }
             
             if (lateFees.compareTo(BigDecimal.ZERO) < 0) {
                 JOptionPane.showMessageDialog(this, "Late fees cannot be negative",
-                        "Validation Error", JOptionPane.ERROR_MESSAGE);
+                        VALIDATION_ERROR_TITLE, JOptionPane.ERROR_MESSAGE);
                 return;
             }
             
@@ -205,7 +209,7 @@ public class AdminFrame extends JFrame {
                     item.setPublicationDate(pubDate);
                 } catch (DateTimeParseException ex) {
                     JOptionPane.showMessageDialog(this, "Invalid date format. Use YYYY-MM-DD",
-                            "Validation Error", JOptionPane.ERROR_MESSAGE);
+                            VALIDATION_ERROR_TITLE, JOptionPane.ERROR_MESSAGE);
                     return;
                 }
             }
@@ -233,10 +237,10 @@ public class AdminFrame extends JFrame {
             
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(this, "Invalid number format: " + ex.getMessage(),
-                    "Validation Error", JOptionPane.ERROR_MESSAGE);
+                    VALIDATION_ERROR_TITLE, JOptionPane.ERROR_MESSAGE);
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Error adding media item: " + ex.getMessage(),
-                    "Error", JOptionPane.ERROR_MESSAGE);
+                    ERROR_TITLE, JOptionPane.ERROR_MESSAGE);
         }
     }
     
@@ -346,7 +350,7 @@ public class AdminFrame extends JFrame {
             
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Error searching items: " + ex.getMessage(),
-                    "Error", JOptionPane.ERROR_MESSAGE);
+                    ERROR_TITLE, JOptionPane.ERROR_MESSAGE);
         }
     }
     
@@ -364,7 +368,7 @@ public class AdminFrame extends JFrame {
             
             if (item == null) {
                 JOptionPane.showMessageDialog(this, "Item not found",
-                        "Error", JOptionPane.ERROR_MESSAGE);
+                        ERROR_TITLE, JOptionPane.ERROR_MESSAGE);
                 return;
             }
             
@@ -404,7 +408,7 @@ public class AdminFrame extends JFrame {
             
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Error viewing item: " + ex.getMessage(),
-                    "Error", JOptionPane.ERROR_MESSAGE);
+                    ERROR_TITLE, JOptionPane.ERROR_MESSAGE);
         }
     }
     
@@ -432,7 +436,7 @@ public class AdminFrame extends JFrame {
             
             if (item == null) {
                 JOptionPane.showMessageDialog(this, "Item not found",
-                        "Error", JOptionPane.ERROR_MESSAGE);
+                        ERROR_TITLE, JOptionPane.ERROR_MESSAGE);
                 return;
             }
             
@@ -493,14 +497,14 @@ public class AdminFrame extends JFrame {
                     if (availableCopies > totalCopies) {
                         JOptionPane.showMessageDialog(dialog, 
                             "Available copies (" + availableCopies + ") cannot exceed total copies (" + totalCopies + ")",
-                            "Validation Error", JOptionPane.ERROR_MESSAGE);
+                            VALIDATION_ERROR_TITLE, JOptionPane.ERROR_MESSAGE);
                         return;
                     }
                     
                     if (availableCopies < 0 || totalCopies <= 0) {
                         JOptionPane.showMessageDialog(dialog, 
                             "Total copies must be greater than 0 and available copies cannot be negative",
-                            "Validation Error", JOptionPane.ERROR_MESSAGE);
+                            VALIDATION_ERROR_TITLE, JOptionPane.ERROR_MESSAGE);
                         return;
                     }
                     
@@ -519,7 +523,7 @@ public class AdminFrame extends JFrame {
                     
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(dialog, "Error updating item: " + ex.getMessage(),
-                            "Error", JOptionPane.ERROR_MESSAGE);
+                            ERROR_TITLE, JOptionPane.ERROR_MESSAGE);
                 }
             });
             
@@ -536,7 +540,7 @@ public class AdminFrame extends JFrame {
             
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Error editing item: " + ex.getMessage(),
-                    "Error", JOptionPane.ERROR_MESSAGE);
+                    ERROR_TITLE, JOptionPane.ERROR_MESSAGE);
         }
     }
     
@@ -568,7 +572,7 @@ public class AdminFrame extends JFrame {
             
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Error deleting item: " + ex.getMessage(),
-                    "Error", JOptionPane.ERROR_MESSAGE);
+                    ERROR_TITLE, JOptionPane.ERROR_MESSAGE);
         }
     }
     
@@ -630,7 +634,7 @@ public class AdminFrame extends JFrame {
             
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Error loading overdue loans: " + ex.getMessage(),
-                    "Error", JOptionPane.ERROR_MESSAGE);
+                    ERROR_TITLE, JOptionPane.ERROR_MESSAGE);
         }
     }
     
@@ -667,7 +671,7 @@ public class AdminFrame extends JFrame {
             String userIdStr = userIdField.getText().trim();
             if (userIdStr.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Please enter a User ID to search",
-                        "Validation Error", JOptionPane.ERROR_MESSAGE);
+                        VALIDATION_ERROR_TITLE, JOptionPane.ERROR_MESSAGE);
                 return;
             }
             
@@ -676,7 +680,7 @@ public class AdminFrame extends JFrame {
                 loadUserLoansForAdmin(tableModel, userId);
             } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(this, "User ID must be a number",
-                        "Validation Error", JOptionPane.ERROR_MESSAGE);
+                        VALIDATION_ERROR_TITLE, JOptionPane.ERROR_MESSAGE);
             }
         });
         
@@ -722,7 +726,7 @@ public class AdminFrame extends JFrame {
             
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Error loading user loans: " + ex.getMessage(),
-                    "Error", JOptionPane.ERROR_MESSAGE);
+                    ERROR_TITLE, JOptionPane.ERROR_MESSAGE);
         }
     }
     
@@ -759,7 +763,7 @@ public class AdminFrame extends JFrame {
             
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Error loading all loans: " + ex.getMessage(),
-                    "Error", JOptionPane.ERROR_MESSAGE);
+                    ERROR_TITLE, JOptionPane.ERROR_MESSAGE);
         }
     }
     
@@ -803,7 +807,7 @@ public class AdminFrame extends JFrame {
             String userIdStr = userIdField.getText().trim();
             if (userIdStr.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Please enter a User ID to search",
-                        "Validation Error", JOptionPane.ERROR_MESSAGE);
+                        VALIDATION_ERROR_TITLE, JOptionPane.ERROR_MESSAGE);
                 return;
             }
             
@@ -812,7 +816,7 @@ public class AdminFrame extends JFrame {
                 loadFinesForAdmin(tableModel, totalLabel, userId);
             } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(this, "User ID must be a number",
-                        "Validation Error", JOptionPane.ERROR_MESSAGE);
+                        VALIDATION_ERROR_TITLE, JOptionPane.ERROR_MESSAGE);
             }
         });
         
@@ -873,7 +877,7 @@ public class AdminFrame extends JFrame {
             
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Error loading fines: " + ex.getMessage(),
-                    "Error", JOptionPane.ERROR_MESSAGE);
+                    ERROR_TITLE, JOptionPane.ERROR_MESSAGE);
         }
     }
     
@@ -918,7 +922,7 @@ public class AdminFrame extends JFrame {
             
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Error loading all fines: " + ex.getMessage(),
-                    "Error", JOptionPane.ERROR_MESSAGE);
+                    ERROR_TITLE, JOptionPane.ERROR_MESSAGE);
         }
     }
     
@@ -1062,7 +1066,7 @@ public class AdminFrame extends JFrame {
             }
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Error loading users: " + ex.getMessage(),
-                    "Error", JOptionPane.ERROR_MESSAGE);
+                    ERROR_TITLE, JOptionPane.ERROR_MESSAGE);
         }
     }
     
@@ -1134,25 +1138,25 @@ public class AdminFrame extends JFrame {
             // Validation
             if (username.isEmpty() || password.isEmpty() || email.isEmpty()) {
                 JOptionPane.showMessageDialog(dialog, "Please fill in all required fields (*)",
-                        "Validation Error", JOptionPane.ERROR_MESSAGE);
+                        VALIDATION_ERROR_TITLE, JOptionPane.ERROR_MESSAGE);
                 return;
             }
             
             if (!password.equals(confirmPassword)) {
                 JOptionPane.showMessageDialog(dialog, "Passwords do not match",
-                        "Validation Error", JOptionPane.ERROR_MESSAGE);
+                        VALIDATION_ERROR_TITLE, JOptionPane.ERROR_MESSAGE);
                 return;
             }
             
             if (password.length() < 6) {
                 JOptionPane.showMessageDialog(dialog, "Password must be at least 6 characters",
-                        "Validation Error", JOptionPane.ERROR_MESSAGE);
+                        VALIDATION_ERROR_TITLE, JOptionPane.ERROR_MESSAGE);
                 return;
             }
             
             if (!email.contains("@")) {
                 JOptionPane.showMessageDialog(dialog, "Please enter a valid email address",
-                        "Validation Error", JOptionPane.ERROR_MESSAGE);
+                        VALIDATION_ERROR_TITLE, JOptionPane.ERROR_MESSAGE);
                 return;
             }
             
@@ -1160,14 +1164,14 @@ public class AdminFrame extends JFrame {
                 // Check if username already exists
                 if (userRepository.findByUsername(username).isPresent()) {
                     JOptionPane.showMessageDialog(dialog, "Username already exists",
-                            "Error", JOptionPane.ERROR_MESSAGE);
+                            ERROR_TITLE, JOptionPane.ERROR_MESSAGE);
                     return;
                 }
                 
                 // Check if email already exists
                 if (userRepository.findByEmail(email).isPresent()) {
                     JOptionPane.showMessageDialog(dialog, "Email already exists",
-                            "Error", JOptionPane.ERROR_MESSAGE);
+                            ERROR_TITLE, JOptionPane.ERROR_MESSAGE);
                     return;
                 }
                 
@@ -1192,7 +1196,7 @@ public class AdminFrame extends JFrame {
                 
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(dialog, "Error creating user: " + ex.getMessage(),
-                        "Error", JOptionPane.ERROR_MESSAGE);
+                        ERROR_TITLE, JOptionPane.ERROR_MESSAGE);
             }
         });
         

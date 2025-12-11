@@ -28,8 +28,8 @@ public class UserFrame extends JFrame {
     private static final String DATE_FORMAT = "yyyy-MM-dd";
     private static final String LOAN_ID_TEXT = "Loan ID";
     private static final String STATUS_TEXT = "Status";
-    private static final String ISBN_TEXT = ISBN_TEXT;
-    private static final String PUBLISHER_TEXT = PUBLISHER_TEXT;
+    private static final String ISBN_TEXT = "ISBN";
+    private static final String PUBLISHER_TEXT = "Publisher";
     private static final String SUCCESS_TEXT = "Success";
     private static final String SEARCH_TEXT = "Search";
     
@@ -361,7 +361,7 @@ public class UserFrame extends JFrame {
                     BUSINESS_ERROR_TITLE, JOptionPane.WARNING_MESSAGE);
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Error returning item: " + ex.getMessage(),
-                    ERROR_TITLE, JOptionPane.ERROR_MESSAGE);GE);
+                    ERROR_TITLE, JOptionPane.ERROR_MESSAGE);
         }
     }
     

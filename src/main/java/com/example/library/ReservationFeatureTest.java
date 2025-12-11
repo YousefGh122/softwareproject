@@ -19,7 +19,7 @@ import java.util.List;
  */
 public class ReservationFeatureTest {
     
-    private static final String SEPARATOR = SEPARATOR;
+    private static final String SEPARATOR = "==========================================";
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     
     public static void main(String[] args) {

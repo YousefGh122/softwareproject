@@ -37,9 +37,9 @@ public class AdminFrame extends JFrame {
     private static final String SEARCH_TEXT = "Search";
     private static final String SHOW_ALL_TEXT = "Show All";
     private static final String PLEASE_SELECT_ITEM = "Please select an item first";
-    private static final String ISBN_LABEL = ISBN_LABEL;
-    private static final String PUBLISHER_LABEL = PUBLISHER_LABEL;
-    private static final String NO_SELECTION_TEXT = NO_SELECTION_TEXT;
+    private static final String ISBN_LABEL = "ISBN:";
+    private static final String PUBLISHER_LABEL = "Publisher:";
+    private static final String NO_SELECTION_TEXT = "No Selection";
     
     private final transient User currentUser;
     private final transient LibraryService libraryService;
